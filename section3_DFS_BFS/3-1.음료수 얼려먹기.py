@@ -29,4 +29,5 @@ for i in range(n):
         if graph[i][j] == 0 and visited[i][j] == 0:
             answer += 1
             bfs(i, j)
+
 print(answer)
