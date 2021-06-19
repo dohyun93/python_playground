@@ -22,5 +22,24 @@ if answer == -1:
     print(f"{target}은 array 에 없다.")
 else:
     print(f"{target}은 array의 {answer}번째 요소다.")
-# 2. 반복문
 
+# 2. 반복문
+# 10 7
+# 1 3 5 7 9 11 13 15 17 19
+answer_loop = -1
+start, end = 0, len(array)-1
+while start <= end:
+    mid = start+end//2
+    if array[mid] == target:
+        answer_loop = mid
+        break
+    elif array[mid] > target:
+        end = mid-1
+        continue
+    else:
+        start = mid+1
+        continue
+if answer_loop == -1:
+    print(f"{target}은 array 에 없다.")
+else:
+    print(f"{target}은 array의 {answer_loop+1}번째 요소다.")
