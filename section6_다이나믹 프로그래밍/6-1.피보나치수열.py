@@ -1,3 +1,5 @@
+import time
+
 def fibo_bad(x):
     if x == 1 or x == 2:
         return 1
@@ -11,13 +13,21 @@ fibo[1], fibo[2] = 1, 1
 def fibo_good(x):
     if x <= 0:
         return -1
-    if 0 < x <= 2:
+    elif 0 < x <= 2:
         return fibo[x]
-
-    for i in range(3, x):
-        fibo[i] = fibo[i - 1] + fibo[i - 2]
-        print(f"fibo({i}) : {fibo[i]}")
-    return fibo[x - 1] + fibo[x - 2]
+    elif fibo[x] != 0:
+        return fibo[x]
+    fibo[x] = fibo_good(x-1) + fibo_good(x-2)
+    return fibo[x]
 
 x = int(input())
+
+bad_start = time.time()
+print(fibo_bad(x))
+bad_end = time.time()
+print(f"bad fibo took {bad_end - bad_start} ms")
+
+good_start = time.time()
 print(fibo_good(x))
+good_end = time.time()
+print(f"good fibo took {good_end - good_start} ms")
