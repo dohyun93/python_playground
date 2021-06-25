@@ -22,8 +22,8 @@ def bfs(r, c):
     dq = deque([(r, c)])
     visited[r][c] = 1
     while dq:
-        r, c = dq.popleft()
-        visited[r][c] = 1 # 방문.
+        r, c = dq.popleft() # 큐는 collections의 deque 사용. popleft, pop, append, appendleft
+        visited[r][c] = 1 # 방문처리.
         for i in range(4):
             nr = r + dr[i]
             nc = c + dc[i]
