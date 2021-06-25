@@ -30,7 +30,7 @@ def fibo_botomup(x):
             return fibo[x]
 
         for i in range(3, x+1):
-            fibo[i] = fibo(i-1) + fibo(i-2)
+            fibo[i] = fibo_botomup(i-1) + fibo_botomup(i-2)
         return fibo[x]
 
 x = int(input())

@@ -12,7 +12,7 @@ for _ in range(N):
     # 지도정보가 붙여서 들어온다면?
     data = list(map(int, input()))
     graph.append(data)
-#print(graph)
+print(graph)
 
 visit = [[False]*M for _ in range(N)]
 dr = [0, 0, 1, -1]
