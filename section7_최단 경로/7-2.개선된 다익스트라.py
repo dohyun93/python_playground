@@ -15,39 +15,36 @@
 
 import heapq
 import sys
-input = sys.stdin.readline
 INF = int(1e9)
-
-n, m = map(int, input().split()) # 노드/간선
+numVertex, numEdge = map(int, input().split())
 start = int(input())
-graph = [[] for _ in range(n+1)]
-distance = [INF] * (n+1)
+graph = [[] for _ in range(numVertex+1)]
+distance = [INF] * (numVertex+1)
 
-for _ in range(m):
-    a, b, c = map(int, input().split())
-    graph[a].append((b, c)) # 출발지] -> 목적지, cost.
+for _ in range(numEdge):
+    src, dst, cost = map(int, input().split())
+    graph[src].append((cost, dst))
 
 def dijkstra(start):
-    hq = []
-    heapq.heappush(hq, (0, start))
+    q = []
+    heapq.heappush(q, (0, start))
     distance[start] = 0
-
-    while hq:
-        # 가장 최단거리가 짧은 노드 정보 꺼내기
-        dist, curVertex = heapq.heappop(hq)
-        # 현재 노드가 이미 처리가 된 것이라면
-        if distance[curVertex] < dist:
+    while q:
+        curCost, curVertex = heapq.heappop(q)
+        # 현재 노드에 대한 최단거리(정답)와 현재노드 cost 비교
+        if distance[curVertex] < curCost:
             continue
-        for i in graph[curVertex]:
-            cost = dist + i[1]
-            if cost < distance[i[1]]:
-                distance[i[0]] = cost
-                heapq.heappush(hq, (cost, i[0]))
+        # 현재노드와 인접한 다른 노드 확인
+        for pair in graph[curVertex]:
+            newCost = curCost + pair[0] # 현재 cost에 graph의 비용 추가.
+            if newCost < distance[pair[1]]:
+                distance[pair[1]] = newCost
+                heapq.heappush(q, (newCost, pair[1]))
 
 dijkstra(start)
 
-for i in range(1, n+1):
+for i in range(1, numVertex+1):
     if distance[i] == INF:
         print("INFINITY")
     else:
-        print(distance[i])
+        print(f"거리는 {distance[i]}입니다.")
