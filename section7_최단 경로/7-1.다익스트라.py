@@ -32,10 +32,10 @@ def dijkstra(start):
     visited[start] = True
     for j in graph[start]:
         distance[j[0]] = j[1]
+
     for i in range(n-1):
         now = get_smallest_node()
         visited[now] = True
-
         for j in graph[now]:
             cost = distance[now] + j[1]
             if cost < distance[j[0]]:
