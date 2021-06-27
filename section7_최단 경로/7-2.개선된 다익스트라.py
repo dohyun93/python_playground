@@ -21,30 +21,29 @@ start = int(input())
 graph = [[] for _ in range(numVertex+1)]
 distance = [INF] * (numVertex+1)
 
-for _ in range(numEdge):
+for edges in range(numEdge):
     src, dst, cost = map(int, input().split())
     graph[src].append((cost, dst))
 
 def dijkstra(start):
+    distance[start] = 0
     q = []
     heapq.heappush(q, (0, start))
-    distance[start] = 0
     while q:
-        curCost, curVertex = heapq.heappop(q)
-        # 현재 노드에 대한 최단거리(정답)와 현재노드 cost 비교
-        if distance[curVertex] < curCost:
+        cumulCost, curVertex = heapq.heappop(q)
+        if distance[curVertex] < cumulCost:
             continue
-        # 현재노드와 인접한 다른 노드 확인
-        for pair in graph[curVertex]:
-            newCost = curCost + pair[0] # 현재 cost에 graph의 비용 추가.
-            if newCost < distance[pair[1]]:
-                distance[pair[1]] = newCost
-                heapq.heappush(q, (newCost, pair[1]))
+        for adjCostAndVertex in graph[curVertex]:
+            adjCost = adjCostAndVertex[0]
+            adjVertex = adjCostAndVertex[1]
+            if cumulCost + adjCost < distance[adjVertex]:
+                distance[adjVertex] = cumulCost + adjCost
+                heapq.heappush(q, (distance[adjVertex], adjVertex))
 
 dijkstra(start)
 
 for i in range(1, numVertex+1):
-    if distance[i] == INF:
-        print("INFINITY")
+    if distance[i] != INF:
+        print(f"{start}->{i}로의 최단 거리는 {distance[i]}이다.")
     else:
-        print(f"거리는 {distance[i]}입니다.")
+        print(f"{start}->{i}로는 도달할 수 없다.")
