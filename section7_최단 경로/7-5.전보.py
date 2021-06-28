@@ -24,7 +24,7 @@ N, M, C = map(int, input().split())
 distance = [INF] * (N+1)
 graph = [[] for _ in range(1+N)]
 
-# 1. 지도 그리기.
+# 1. 지도 그리기..
 for i in range(M):
     src, dst, cost = map(int, input().split())
     graph[src].append((cost, dst))
