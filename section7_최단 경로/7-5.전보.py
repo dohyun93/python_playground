@@ -20,7 +20,7 @@ import heapq
 
 INF = int(1e9)
 N, M, C = map(int, input().split())
-# 한 지점에서 최단거리 -> 다익스트라 알고리즘. (O(ElogV)) -> E : 200000, V : 30000 -> 80만. O(V^2)였으면 9억....
+# 한 지점에서 최단거리 -> 다익스트라 알고리즘. (O(ElogV)) -> E : 200000, V : 30000 -> 80만. O(V^2)였으면 9억.....
 distance = [INF] * (N+1)
 graph = [[] for _ in range(1+N)]
 
