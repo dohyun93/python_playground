@@ -1,37 +1,35 @@
-def find_root(parent, x):
-    if x != parent[x]:
-        parent[x] = find_root(parent, parent[x])
-    return parent[x]
+def findParent(parentList, x):
+    if x != parentList[x]:
+        return findParent(parentList, parentList[x])
+    return x
 
-def find_parent(parent, x):
-    if x != parent[x]:
-        return find_parent(parent, parent[x])
-    return parent[x]
+def findRoot(parentList, x):
+    if x != parentList[x]:
+        parentList[x] = findRoot(parentList, parentList[x])
+    return parentList[x]
 
-def union_parent(parent, a, b):
-    a = find_parent(parent, a)
-    b = find_parent(parent, b)
-    if a < b:
-        parent[b] = a
+def union_parent(parentList, a, b):
+    aParent = findRoot(parentList, a)
+    bParent = findRoot(parentList, b)
+    if aParent < bParent:
+        parentList[b] = aParent
     else:
-        parent[a] = b
+        parentList[a] = bParent
 
 v, e = map(int, input().split())
-parent = [0] * (v + 1)
+parentList = [0] * (1+v)
 
 for i in range(1, v+1):
-    parent[i] = i
+    parentList[i] = i
 
 for i in range(e):
     a, b = map(int, input().split())
-    union_parent(parent, a, b)
+    union_parent(parentList, a, b)
 
-print('각 원소가 속한 집합: ', end = '')
+print("각 원소가 속한 집합(root): ")
 for i in range(1, v+1):
-    print(find_parent(parent, i), end = ' ')
+    print(findRoot(parentList, i), end=' ')
 
-print()
-
-print('부모 테이블: ', end='')
+print("각 원소의 부모: ")
 for i in range(1, v+1):
-    print(parent[i], end= ' ')
+    print(parentList[i], end=' ')
