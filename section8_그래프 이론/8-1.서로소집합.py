@@ -17,10 +17,13 @@ def makeUnion(parent, a, b):
     # 루트노드를 그룹으로 생각하고 그루핑을 한다고 생각하면 편함.
     aRoot = findRoot_2(parent, a)
     bRoot = findRoot_2(parent, b)
+
+    # a가 속한 집합으로 b를 union해야 함.
+    # b루트의 루트값(=b루트)을 a의 루트값으로 바꿔야한다.
     if aRoot < bRoot:
-        parent[b] = aRoot
+        parent[bRoot] = aRoot
     else:
-        parent[a] = bRoot
+        parent[aRoot] = bRoot
 
 
 v, e = map(int, input().split())
@@ -41,13 +44,15 @@ for i in range(1, v+1):
 print('\n각 원소의 부모노드')
 for i in range(1, v+1):
     print(parent[i], end= ' ')
-
+#[input]
 # 6 5
 # 1 4
 # 2 3
 # 2 4
 # 5 6
 # 2 3
+
+#[output]
 # 각 원소의 루트노드
 # 1 1 1 1 5 5
 # 각 원소의 부모노드
