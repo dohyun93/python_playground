@@ -32,6 +32,7 @@ parent = [0] * (v+1)
 for i in range(1, v+1):
     parent[i] = i
 
+# 간선으로 연결된 두 노드에 대해 루트노드 확인 후 union 연산.
 for i in range(e):
     a, b = map(int, input().split())
     makeUnion(parent, a, b)

@@ -37,13 +37,14 @@ for _ in range(e):
     a, b, cost = map(int, input().split())
     edges.append((cost, a, b))
 
-edges.sort() # 비용 순으로 정렬.
+edges.sort() # 간선의 비용 순으로 오름차순 정렬.
 
 for edge in edges:
     cost, a, b = edge
     # 같은 집합에 속해있다(=루트노드가 같다)는 조건이 아니면 현재 그래프에 포함이 안되어있다는 것이고,
     # MST를 만들기 위해 추가가 필요하다는 의미
-    # 루트노드가 같다면 사이클이 발생한 것. (무향 그래프 기준.)
+    # 간선으로 연결된 두 노드의 부모노드가 같다는 것은 각자 루트노드와 연결되기 때문에 사이클이 있다는 의미.
+    # 그래서 루트노드가 같다면 사이클이 발생한 것. (무향 그래프 기준.)
     if findRootAndSetParent(root, a) != findRootAndSetParent(root, b):
         union(root, a, b)
         result += cost
