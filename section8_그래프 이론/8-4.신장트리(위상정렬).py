@@ -10,6 +10,9 @@
 #            remove edge from graph where e(v -> somenode)
 # 만약 모든 노드를 방문하기 전에 큐가 빈다면 사이클이 존재한다.
 
+# 시간복잡도: O(V + E)
+# 차례대로 모든 노드를 확인하면서, 해당 노드에서 출발하는 간선들을 차례대로 제거.
+
 from collections import deque
 
 v, e = map(int, input().split())
