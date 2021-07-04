@@ -58,11 +58,20 @@ def solution(food_times, k):
     previousTime = 0
     foodLen = len(food_times)
 
+    # 당연히 전체 합이 k보다 작으면 다음턴에서 찾아야 하고.
+
+    # 전체 합이 k와 같더라도 다음 턴에서 정답을 찾을 수 있음.
+    # 0, 1, 2초에 각 음식을 먹어도 (=sumTime: 3) k=3초라면 3~4초 시점이기 때문에 다음을 봐야함.
     while sumTime + (pq[0][0] - previousTime) * foodLen <= k:
         now = heapq.heappop(pq)[0]
+        # 이전과 같은 경우 len만 -1하고 다음으로.
+        # 즉, 이전에 전체 len으로 삭제한 것에 대해 추가 연산 안함.
         sumTime += (now - previousTime) * foodLen
         foodLen -= 1
         previousTime = now
 
+    # 음식 번호로 다시 정렬. lambda로 음식 번호(pq[1])를 키로 지정해 정렬하는 것 주목.
     result = sorted(pq, key=lambda x: x[1])
+    # 길이가 줄어들어있는 pq기반의 정렬된 리스트 result내에서 정답을 찾으려면 초기의 상태 기반의 값들인 k, sumTime의 차를
+    # 현재 result의 길이인 foodLen으로 나눈 나머지를 구해야 한다. (foodLen은 위 while문에서 지속적으로 길이조정이 됨.)
     return result[(k - sumTime) % foodLen][1]
