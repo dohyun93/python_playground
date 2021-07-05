@@ -13,9 +13,12 @@ for i in S:
         number.append(int(i))
 
 character.sort()
+character.append(str(sum(number)))
 
-answer = []
 answer = ''.join(character)
-answer += str(sum(number))
-
 print(answer)
+
+# [input]
+# AJKDLSI412K4JSJ9D
+# [output]
+# ADDIJJJKKLSS20
