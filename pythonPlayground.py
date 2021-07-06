@@ -104,7 +104,7 @@ myData = ['A', 'B', 'C']
 permu = list(permutations(myData, 3)) # myData에서 3개를 뽑아 만들 수 있는 순열.
 print(permu)
 combi = list(combinations(myData, 2)) # myData에서 2개를 뽑아 만들 수 있는 조합.
-print(combi)
+print("fuck", combi)
 permu_repeat = list(product(myData, repeat=2)) # myData에서 2개를 중복 허용해서 만들 수 있는 수열.
 print(permu_repeat)
 combi_repl = list(combinations_with_replacement(myData, 2)) # myData에서 2개를 중복 허용해서 만들 수 있는 조합
