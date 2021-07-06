@@ -1,53 +1,27 @@
 def solution(s):
-    answer = 9999
+    answer = 1001
     if len(s) == 1:
-        answer = 1
-        return answer
-    for leng in range(1, int(len(s)/2) + 1):
-        left = s[0:leng]
-        same = 1
-        substring = ""
-        for idx in range(leng, len(s), leng):
-            # 마지막 동일 또는 넘는경우 (끝)
-            # 0123
-            if idx + leng > len(s):
-                right = s[idx:]
-                if same > 1:
-                    substring += str(same)
-                substring += left
-                substring += right
-                break
-            elif idx + leng == len(s):
-                right = s[idx:]
-                if left == right:
-                    same += 1
-                    substring += str(same)
-                    substring += left
-                    break
+        return 1
+    for leng in range(1, len(s)//2+1):
+        s_tmp = s
+        curanswer = 0
+        madeString = []
+        while s_tmp:
+            # python은 아래처럼 leng까지 슬라이싱 할 때, 범위 넘어도 괜찮다.
+            # [5]길이에서 [2:1000]하면 [2]부터 [4]까지 가져옴.
+            sliced = s_tmp[:leng]
+            s_tmp = s_tmp[leng:]
+            # 만든 스트링이 있다면
+            if madeString:
+                # 마지막 존재하는 것이랑 동일하면
+                if madeString[-1][1] == sliced:
+                    madeString[-1][0] += 1
                 else:
-                    if same > 1:
-                        substring += str(same)
-                    substring += left
-                    substring += right
-                    break
-            # 뒤에 아직 남은 경우
+                    madeString.append([1, sliced])
+            # 없으면 1개정보 넣기
             else:
-                right = s[idx:idx+leng]
-                if left == right:
-                    same += 1
-                else:
-                    if same > 1:
-                        substring += str(same)
-                        substring += left
-                    else:
-                        substring += left
-                    left = right
-                    same = 1
-
-        answer = min(answer, len(substring))
-        #print(substring)
-        #print()
+                madeString.append([1, sliced])
+        for element in madeString:
+            curanswer += len(element[1]) + (element[0] > 1) * len(str(element[0]))
+        answer = min(curanswer, answer)
     return answer
-
-#answer = solution("a")
-#print(answer)
