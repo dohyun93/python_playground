@@ -13,6 +13,7 @@
 # 2 <= N <= 50
 # 1 <= M <= 13
 
+# 전체 48라인.
 from itertools import combinations
 
 INF = int(1e9)
@@ -31,7 +32,6 @@ for r in range(N):
         elif graph[r][c] == 2:
             chicken.append((r, c))
 
-#print("전체 치킨집위치: ", chicken)
 chickenIdx = [i for i in range(len(chicken))]
 
 answer = INF
@@ -40,12 +40,9 @@ for picknum in range(1, M+1):
     if picknum == 1:
         oneChickenCityDist = INF
         for ch_idx in chickenIdx:
-            #print("chicken집 정보--", chicken[ch_idx])
             curChickenMinDist = 0
             for home in homes:
-                #print("현재 집 정보--", home)
                 curChickenMinDist += abs(chicken[ch_idx][0]-home[0]) + abs(chicken[ch_idx][1]-home[1])
-            #print("이 chicken집과 집들사이 도시 치킨 거리", curChickenMinDist)
             # 도시 치킨 거리 갱신.
             oneChickenCityDist = min(oneChickenCityDist, curChickenMinDist)
         answer = min(answer, oneChickenCityDist)
