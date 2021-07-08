@@ -143,7 +143,7 @@ print(leftidx, rightidx)
 ############### collections ################
 # dq = deque()
 # dq.appendleft(val) / dq.append(val) / dq.popleft() / dq.pop()
-# deque는 인덱싱 불가.
+# deque도 인덱싱 가능.
 
 data = deque()
 data.appendleft(0)
