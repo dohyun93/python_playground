@@ -21,7 +21,7 @@ def solution(n, weak, dist):
                                    # 끝나는 경우 추가처리가 되기때문에 여기서 +1.
                     # position을 남은 것들중 가장 가까운 weak지점으로 이동처리필요.
                     position = [w for w in weak_extended if w > position][0]
-
+                    # ($$ 배운점 : list comprehention 뒤에 바로 인덱싱 넣을 수 있다.$$)
                 else:
                     answer.append(friendNum)
                     break
