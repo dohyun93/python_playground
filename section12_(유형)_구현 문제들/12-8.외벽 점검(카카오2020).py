@@ -1,24 +1,28 @@
-from itertools import permutations
+# 시작 위치를 weak에서 for로 돌리고
+# 그 때, 각 친구들의 투입 순열을 넣어서 다 점검하기 전까지 투입된 친구 수들을 리스트에 저장.
+from itertools import permutations # 순열
 def solution(n, weak, dist):
-    L = len(weak)
-    cand = []
-    weak_point = weak + [w+n for w in weak]  # 선형으로
+    weak_len = len(weak)
+    weak_extended = weak + [w+n for w in weak] # 선형으로 취급
+    # (배운점1. list를 +로 이을 수 있다.)
 
-    for i, start in enumerate(weak): # 1. 시작지점을 정하고
-        for friends in permutations(dist):  # 2. 친구 이동순서를 순열로 만들어둠.
-            friend_count = 1
-            position = start
-            # 친구 조합 배치
-            for friend in friends: # 현재 순열요소대로 이동시키기
+    # ---------- | ===========
+    # 위가 한 cycle , 위가 다음 cycle이나, 첫 번째 cycle의 모든 weak이 점검되었는지 확인 위해 다음 cycle까지 둠.
+    answer = []
+    for idx, startIdx in enumerate(weak):
+        for friends_permu in permutations(dist):
+            position = startIdx
+            friendNum = 1 ##### 0->1로.
+            for friend in friends_permu:
                 position += friend
-                # 끝 포인트까지 도달 못했을 때
-                if position < weak_point[i+L-1]:
-                    friend_count += 1  # 친구 더 투입
-                    # 현재 위치보다 멀리 있는 취약지점 중 가장 가까운 위치로
-                    position = [w for w in weak_point[i+1:i+L]
-                                if w > position][0]
-                else:  # 끝 포인트까지 도달
-                    cand.append(friend_count)
-                    break
+                if position < weak_extended[idx+weak_len-1]:
+                    # 끝까지 도달하지 못한 경우
+                    friendNum += 1 ##### 친구 추가투입. 이후 다음 friend for에서 아래 else조건만족해서
+                                   # 끝나는 경우 추가처리가 되기때문에 여기서 +1.
+                    # position을 남은 것들중 가장 가까운 weak지점으로 이동처리필요.
+                    position = [w for w in weak_extended if w > position][0]
 
-    return min(cand) if cand else -1
+                else:
+                    answer.append(friendNum)
+                    break
+    return min(answer) if answer else -1
