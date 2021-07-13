@@ -50,7 +50,7 @@ def solution(p):
         answer = '('
         answer += solution(v)
         answer += ')'
-        u_tmp = list(u[1:-1])
+        u_tmp = list(u[1:-1]) # 문자열을 list로 만들어 활용 후 join으로 다시 문자열로.
         for i in range(len(u_tmp)):
             if u_tmp[i] == '(':
                 u_tmp[i] = ')'
