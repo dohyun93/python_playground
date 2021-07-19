@@ -28,6 +28,10 @@ def solution(N, stages):
     # 0 1 2 3 4 5 6 - idx
     # 0 1 3 2 1 0 1 - failed people
     # 0 8 7 4 2 1 - - people
+
+    # 0으로 나누는 경우의 실패율 구하기 -> 42~44라인 예외처리 필요.
+    # 0 1 3 4 0 0 0 - failed people
+    # 0 8 7 4 0 0 - - people
     people = [0] * (N + 1)
     people[1] = numPeople
     for i in range(2, N + 1):
