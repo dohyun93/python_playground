@@ -59,6 +59,7 @@ def solution(words, queries):
 # "fro???"는 "frozen"에 매치되므로 1입니다.
 # "pro?"는 매치되는 가사 단어가 없으므로 0 입니다.
 
+# https://codingffler.tistory.com/24
 class Node(object):
     def __init__(self, key):
         self.key = key
