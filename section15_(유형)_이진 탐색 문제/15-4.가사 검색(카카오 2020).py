@@ -59,64 +59,71 @@ def solution(words, queries):
 # "fro???"는 "frozen"에 매치되므로 1입니다.
 # "pro?"는 매치되는 가사 단어가 없으므로 0 입니다.
 
-from collections import defaultdict
+class Node(object):
+    def __init__(self, key):
+        self.key = key
+        self.count = 0
+        self.children = {}
 
-class Node:
-    def __init__(self, char, length=None, data=None):
-        self.char = char
-        self.data = None # 현재 노드가 나타내는 문자열.
-        self.children = {} # 현재 노드 다음에 올 수 있는 알파벳의 사전.
-        # length값을 저장할 dictionary. 코드를 간소화하려고 defaultdict을 사용해
-        # 인자값이 없으면 0을 리턴하도록 했다.
-        self.length = defaultdict(int) # 미할당시 0으로 초기화
-
-
-class Trie:
+class Trie(object):
     def __init__(self):
-        self.head = Node(None)
+        self.head = Node(self)
 
     def insert(self, string):
-        node = self.head
-        node.length[len(string)] += 1 # 이 노드를 거쳐가는 문자열의 길이가 string인것 +1.
-        for char in string:
-            if char not in node.children:
-                node.children[char] = Node(char)
-            # children Node의 length 변수에 [문자열 길이] += 1을 해줬다.
-            # 해당 노드를 거쳐가는 문자열 중 길이가 len(string)인 것의 개수를 저장한 것.
-            node.children[char].length[len(string)] += 1
-            node = node.children[char]
-        node.data = string
+        curNode = self.head
 
-    def start_with(self, prefix, length):
-        node = self.head
+        for char in string:
+            curNode.count += 1 # 현재노드를 거쳐 입력된 문자열 수
+            if char not in curNode.children:
+                curNode.children[char] = Node(char)
+
+            curNode = curNode.children[char]
+
+        curNode.count += 1 # 마지막 노드 도달 처리.
+
+    def startswith(self, prefix):
+        curNode = self.head
+        result = 0
         for char in prefix:
-            if char in node.children:
-                node = node.children[char]
+            if char == "?":
+                break
+
+            if char in curNode.children:
+                curNode = curNode.children[char]
             else:
                 return 0
-        # prefix의 마지막 노드에서 length변수를 확인해
-        # 해당 노드를 거쳐간 문자열 중 길이가 length인 것의 개수를 반환한다.
-        return node.length[length]
 
+        return curNode.count # prefix로 시작하는 문자열 존재 개수 리턴.
 
 def solution(words, queries):
     answer = []
-    front = Trie()
-    back = Trie()
-    for word in words:
-        front.insert(word)
-        back.insert(word[::-1])
-    for query in queries:
-        # 전부 ?일 경우 - 문자열 길이만 일치하면 된다
-        if query == "?" * len(query):
-            answer.append(front.head.length[len(query)])
+    tries = {}
+    reverse_tries = {}
 
-        # 맨 앞 글자가 ?인 경우는 역방향 트라이를 사용했다
-        elif query[0] == "?":
-            prefix = query[::-1].split("?")[0]
-            answer.append(back.start_with(prefix, len(query)))
+    for word in words:
+        if len(word) in tries:
+            tries[len(word)].insert(word)
+            reverse_tries[len(word)].insert(reversed(word))
         else:
-            prefix = query.split("?")[0]
-            answer.append(front.start_with(prefix, len(query)))
+            trie = Trie()
+            reverse_trie = Trie()
+
+            trie.insert(word)
+            reverse_trie.insert(reversed(word))
+
+            tries[len(word)] = trie
+            reverse_tries[len(word)] = reverse_trie
+
+    for query in queries:
+        if len(query) in tries:
+            if query[0] != "?":
+                trie = tries[len(query)]
+                answer.append(trie.startswith(query))
+            else:
+                trie = reverse_tries[len(query)]
+                answer.append(trie.startswith(reversed(query)))
+        else:
+            answer.append(0)
 
     return answer
+
