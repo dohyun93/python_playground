@@ -2,7 +2,7 @@
 import sys
 from itertools import permutations, combinations, product, combinations_with_replacement # -> 순열, 조합, 중복허용 순열/조합
 from bisect import bisect_left, bisect_right # 정렬된 iterable에서 이진탐색 인덱스 활용 -> bisect_left(list, 숫자)
-from collections import deque, Counter # 왼쪽 오른쪽 삽입 가능한 deque (인덱싱은 안됨), 횟수 카운팅해주는 것
+from collections import deque, Counter, defaultdict # 왼쪽 오른쪽 삽입 가능한 deque (인덱싱은 안됨), 횟수 카운팅해주는 것
 import heapq # 힙 -> 최단경로문제 자주활용. heapq.heappush(리스트, 요소), heapq.heappop(리스트)
 import math
 # sys.stdin.readline().rstrip()
