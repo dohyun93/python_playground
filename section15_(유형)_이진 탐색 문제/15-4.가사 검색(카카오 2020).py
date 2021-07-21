@@ -109,7 +109,7 @@ def solution(words, queries):
     for query in queries:
         # 전부 ?일 경우 - 문자열 길이만 일치하면 된다
         if query == "?" * len(query):
-            answer.append(front.head.length[len(word)])
+            answer.append(front.head.length[len(query)])
 
         # 맨 앞 글자가 ?인 경우는 역방향 트라이를 사용했다
         elif query[0] == "?":
