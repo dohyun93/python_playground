@@ -15,24 +15,23 @@
 #
 # 간격에 대한 이진 탐색 문제.
 
-n, c = map(int, input().split())
-
-array = []
+n, c = list(map(int, input().split()))
+home = []
 for _ in range(n):
-    array.append(int(input()))
-array.sort()
+    home.append(int(input()))
+home.sort()
 
-start = array[1] - array[0]
-end = array[-1] - array[0] # 최소~최대 간격
+start = 1
+end = home[-1] - home[0] # 최소~최대 간격
 answer = 0
 
 while start <= end:
     gap = (start + end) // 2
-    curPos = array[0]
+    curPos = home[0]
     installed_count = 1
     for i in range(1, n):
-        if array[i] >= curPos + gap:
-            curPos = array[i]
+        if home[i] >= curPos + gap:
+            curPos = home[i]
             installed_count += 1
     if installed_count >= c: # 너무 촘촘. 간격 늘리기.
         start = gap+1
