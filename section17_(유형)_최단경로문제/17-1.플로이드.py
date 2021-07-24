@@ -21,22 +21,31 @@ n = int(input())
 edge = int(input())
 INF = int(1e9)
 
+# 1. 그래프 초기화
 graph = [[INF] * (n+1) for _ in range(n+1)]
+# 2. 자기자신으로가는 것 0 처리.
 for i in range(1, n+1):
     for j in range(1, n+1):
         if i == j:
             graph[i][j] = 0
-
+# 3. 간선 정보 입력 받고, 중복된 출발/목적지 정보에 대해 비용은 최소값으로 처리
 for _ in range(edge):
     src, dst, cost = map(int, sys.stdin.readline().rsplit())
     # print(src, dst, cost)
     graph[src][dst] = min(graph[src][dst], cost)
-
+# 4. 플로이드 워셜 알고리즘.
 for k in range(1, n+1):
     for src in range(1, n+1):
         for dst in range(1, n+1):
             graph[src][dst] = min(graph[src][dst], graph[src][k] + graph[k][dst])
 
+# 4. 도달 못하는 경우 0으로 처리
+for src in range(1, n+1):
+    for dst in range(1, n+1):
+        if graph[src][dst] == INF:
+            graph[src][dst] = 0
+
+# 5. 정답 출력.
 for r in range(1, n+1):
     for c in range(1, n+1):
         print(graph[r][c], end=' ')
