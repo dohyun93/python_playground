@@ -28,6 +28,6 @@ for node1 in range(1, N+1):
     for node2 in range(1, N+1):
         if graph[node1][node2] != INF or graph[node2][node1] != INF:
            cnt += 1
-    if cnt == N:
+    if cnt == N: # 자기자신으로가는건 0이기때문에 30라인에서 +1 처리됨. 결국 N개만큼 조건만족 간선이 있는경우 정답처리.
         answer += 1
 print(answer)
