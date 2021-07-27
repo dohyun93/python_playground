@@ -1,3 +1,6 @@
+# 서로소 집합을 이용한 같은 루트인지 판별.
+# 그래프에서 같은 루트를 갖는다면 경로를 공유하는 거시다.
+
 import sys
 input = sys.stdin.readline
 
