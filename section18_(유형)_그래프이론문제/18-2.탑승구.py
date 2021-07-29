@@ -14,7 +14,7 @@ def union(root, a, b):
         root[bRoot] = aRoot
     else:
         root[aRoot] = bRoot
-
+  ##
 if __name__ == "__main__":
     G = int(input())
     P = int(input())
