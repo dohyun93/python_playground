@@ -56,7 +56,7 @@ def solution(msg):
                 break
             # 문자열 현재까지 있는데, 더 볼 필요 없는 경우. curIdx를 범위 밖으로 처리.
             if right == len(msg)-1:
-                if getKey(myDict, curString):
+                if thisKey:
                     answer.append(getKey(myDict, curString))
                     curIdx = right+1
                     break
