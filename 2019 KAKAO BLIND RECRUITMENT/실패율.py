@@ -1,4 +1,5 @@
 # https://programmers.co.kr/learn/courses/30/lessons/42889?language=python3
+# 구현문제.
 
 def solution(N, stages):
     answer = []
