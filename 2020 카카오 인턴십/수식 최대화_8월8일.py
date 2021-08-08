@@ -1,5 +1,5 @@
 # https://programmers.co.kr/learn/courses/30/lessons/67257
-
+# https://www.youtube.com/watch?v=5UPS-lvZL2g -> 풀이참고영상
 from itertools import permutations
 import re
 
