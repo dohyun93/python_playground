@@ -2,37 +2,37 @@
 
 from itertools import permutations
 
-def satisfy(users, banned_id):
-    for i in range(len(banned_id)):
-        if len(users[i]) != len(banned_id[i]):
+def check(permu, banned_id):
+    for idx, p in enumerate(permu):
+        curBan = banned_id[idx]
+        if len(p) != len(curBan):
             return False
-
-        for j in range(len(banned_id[i])):
-            if banned_id[i][j] == '*':
+        for j in range(len(curBan)):
+            if curBan[j] == '*':
                 continue
-            if banned_id[i][j] != users[i][j]:
-                return False
+            else:
+                if curBan[j] != p[j]:
+                    return False
     return True
 
+
 def solution(user_id, banned_id):
-    user_permutations = list(permutations(user_id, len(banned_id)))
-    # 조합으로 하면 만족하는 경우 satisfy함수에서 못찾아낼 수 있다.
-    # 모든 순열의 경우에 대해 탐색해보고 만족하면 그 순열을 집합화해서 기존 유무 확인하여야 한다.
-    banSet = []
-    for users in user_permutations:
-        if not satisfy(users, banned_id):
-            continue
+    answer = []
+    banned_num = len(banned_id)
 
-        else:
-            users = set(users)
-            # (A, B, C), (A, C, B), (B, A, C), (B, C, A), (C, A, B), (C, B, A)
-            # 같은 user 모두 동일취급
-            if users not in banSet:
-                banSet.append(users)
-    return len(banSet)
+    for permu in list(permutations(user_id, banned_num)):
+        if check(permu, banned_id):
+            p_set = set(permu)
+            if p_set not in answer:
+                answer.append(p_set)
+    return len(answer)
 
-user_id = ["frodo", "fradi", "crodo", "abc123", "frodoc"]
-banned_id = ["fr*d*", "*rodo", "******", "******"]
 
-result = solution(user_id, banned_id)
-print(result)
+# fr*d* -> frodo, fradi
+# *rodo -> frodo, crodo
+# ****** -> abc123, frodoc
+# ****** -> abc123, frodoc
+
+# frodo / crodo / abc123 / frodoc
+# frodo / crodo / frodoc / abc123 -> 동일하게 취급. 즉 순열들로 비교하되, 마지막에 넣을 때는
+# set으로 변화시킨 것이 정답리스트에 포함되어있는지 확인 후 넣음.
