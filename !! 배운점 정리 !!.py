@@ -127,3 +127,21 @@ if setB.issubset(setA):
     print("조건식은 if setB.issubset(setA): 입니다.")
 print()
 print()
+
+
+####################################
+# 6. 리스트 컴프리헨션 추가정리
+print("< 6. 리스트 컴프리헨션 추가 정리 -> 재료 리스트가 있을 때/없을 때 >")
+exists = [i for i in range(10)]
+list1 = [x for x in range(10) if x % 2 == 0] # 리스트가 없을 때
+list2 = [x if x % 2 == 0 else -1 for x in range(10)]
+
+list3 = [x if x % 2 == 0 else -1 for x in exists]
+list4 = [x for x in exists if x % 2 == 0]
+
+print("리스트 준비 안되었을 때", list1)
+print("리스트 준비 안되었을 때", list2)
+
+print("리스트 준비 되었을 때", list3)
+print("리스트 준비 되었을 때", list4)
+myList = ['O']
