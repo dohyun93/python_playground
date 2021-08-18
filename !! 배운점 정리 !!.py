@@ -145,3 +145,28 @@ print("리스트 준비 안되었을 때", list2)
 print("리스트 준비 되었을 때", list3)
 print("리스트 준비 되었을 때", list4)
 myList = ['O']
+print()
+print()
+####################################
+# 7. 재귀 횟수 제한 증가
+print("< 7. 재귀 횟수제한 증가 - sys.setrecursionlimit >")
+print("import sys 후, sys.setrecursionlimit(횟수)")
+import sys
+sys.setrecursionlimit(10**6)
+
+print()
+print()
+####################################
+# 8. filter - https://wikidocs.net/22803
+# map은 두 번째 iterable 인자들에 첫 번째 함수인자를 적용시킴
+# filter은 주로 lambda함수를 활용해 특정 조건의 두 번째 iterable 인자의 원소들을 골라냄.
+
+print("< 8. filter 함수 - iterable 변수에서 특정 조건의 원소들을 골라낼 때 사용한다. >")
+print("target = [1, 2, 3, 4, 5, 6, 7, 8]")
+print("filtered = list(filter(lambda x: x % 2 == 0, target))")
+print("[2, 4, 6, 8]")
+
+target = [1, 2, 3, 4, 5, 6, 7, 8]
+filtered = list(filter(lambda x: x % 2 == 0, target))
+print(filtered) # [2, 4, 6, 8]
+
