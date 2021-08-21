@@ -37,7 +37,7 @@ def solution(board):
                 continue
 
             costCumul = cost + (100 if (dir, n_dir) in hor_move else 600)
-            if memo[nr][nc] != -1 and memo[nr][nc] < costCumul:
+            if memo[nr][nc] != -1 and memo[nr][nc] < costCumul: # 기존에 방문했고, 더 적은비용으로 메모해놨을경우
                 continue
 
             q.append((nr, nc, n_dir, costCumul))
